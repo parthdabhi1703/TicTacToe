@@ -366,6 +366,7 @@ function joinRoom() {
       connectionStatusDisplay.textContent = 'Connected!';
       connectionStatusDisplay.className = 'connection-status connected';
       showAssignment();
+      setupConnection(); // ✅ FIX: Add this line
     });
     conn.on('error', err => console.log('Connection error:', err));
   });
@@ -540,7 +541,11 @@ function resetGameState() {
   turnNumber = 1;
   gameActive = true;
   winnerDisplay.textContent = '';
-  cells.forEach(c => c.textContent = '' || c.classList.remove('filled', 'X', 'O', 'blink'));
+  winnerDisplay.classList.remove('show');
+  cells.forEach(c => {
+    c.textContent = '';
+    c.classList.remove('filled', 'X', 'O', 'blink');
+  });
   updateDisplay();
   updateCellStates();
 }
